@@ -1,0 +1,142 @@
+---
+import Icons from './Icons.astro';
+---
+
+<div class="store-modal" id="store-modal" role="dialog" aria-modal="true" aria-labelledby="store-modal-title" hidden>
+  <div class="store-modal__backdrop" data-close-store-modal></div>
+  <div class="store-modal__card">
+    <div class="store-modal__top">
+      <div class="store-modal__brand">
+        <Icons name="logo" size={28} />
+        <span class="store-modal__badge" id="store-modal-platform">Official App Store Channel</span>
+      </div>
+      <button type="button" class="store-modal__close" data-close-store-modal aria-label="Close modal">
+        <Icons name="close" size={18} />
+      </button>
+    </div>
+
+    <h3 id="store-modal-title" class="store-modal__title">FitMate Official Store Link</h3>
+    <p class="store-modal__body" id="store-modal-body">
+      Direct Apple App Store and Google Play URLs are linked here as soon as the official store listing URLs are published. FitMate is always 100% free for gym members to download and use.
+    </p>
+
+    <div class="store-modal__info">
+      <Icons name="info" size={17} />
+      <p>
+        Already training at a participating club? Ask your gym front desk for your facility onboarding details so you can connect seamlessly once you install FitMate.
+      </p>
+    </div>
+
+    <div class="store-modal__actions">
+      <button type="button" class="btn btn--primary btn--compact" data-close-store-modal>
+        Got It
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .store-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+  }
+
+  .store-modal[hidden] {
+    display: none;
+  }
+
+  .store-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 7, 11, 0.78);
+    backdrop-filter: blur(8px);
+  }
+
+  .store-modal__card {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 28rem);
+    padding: 1.65rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(155deg, #1b2232, #0d1119);
+    border: 1px solid rgba(163, 192, 255, 0.28);
+    box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.88);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .store-modal__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .store-modal__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .store-modal__badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .store-modal__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.15rem;
+    height: 2.15rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .store-modal__title {
+    font-size: 1.32rem;
+    font-weight: 700;
+  }
+
+  .store-modal__body {
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  .store-modal__info {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.9rem;
+    border-radius: 0.85rem;
+    background: rgba(9, 11, 16, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .store-modal__info svg {
+    color: var(--accent-primary);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .store-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.25rem;
+  }
+</style>

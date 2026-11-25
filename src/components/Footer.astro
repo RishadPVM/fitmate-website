@@ -1,0 +1,273 @@
+---
+import { SITE } from '../config/site';
+import Icons from './Icons.astro';
+import StoreBadges from './StoreBadges.astro';
+
+export interface Props {
+  isHome?: boolean;
+}
+
+const { isHome = true } = Astro.props;
+const prefix = isHome ? '' : '/';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer" aria-label="Site Footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href={isHome ? '#hero' : '/'} class="brand-lockup" aria-label="FitMate Home">
+          <Icons name="logo" size={34} />
+          <span class="brand-lockup__name">{SITE.brandName}</span>
+        </a>
+        <p class="footer-brand__desc">
+          FitMate connects gyms and their members through an organized, motivating companion experience built for
+          consistency and personal progress.
+        </p>
+        <p class="footer-brand__tagline">{SITE.tagline}</p>
+
+        <div class="footer-socials" aria-label="FitMate official social channels">
+          {SITE.socials.map((social) =>
+            social.url ? (
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn"
+                aria-label={`FitMate on ${social.label}`}
+              >
+                <Icons name={social.key} size={18} />
+              </a>
+            ) : (
+              <button
+                type="button"
+                class="footer-social-btn"
+                data-store-modal-trigger="social"
+                aria-label={`${social.label} channel status`}
+              >
+                <Icons name={social.key} size={18} />
+              </button>
+            )
+          )}
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col__title">Explore</h3>
+        <ul class="footer-links">
+          {SITE.navLinks.map((link) => (
+            <li>
+              <a href={`${prefix}${link.href}`} class="footer-link">
+                {link.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href={`${prefix}#faq`} class="footer-link">FAQ</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col__title">Download App</h3>
+        <div class="footer-stores">
+          <StoreBadges variant="compact" />
+        </div>
+        <p class="footer-col__note">100% Free for gym members on iPhone and Android.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col__title">Contact &amp; Legal</h3>
+        <div class="footer-contact-box">
+          <p class="footer-contact-box__label">Official Contact</p>
+          <p class="footer-contact-box__text">{SITE.contact.placeholderLabel}</p>
+          <p class="footer-contact-box__sub">{SITE.contact.gymInquiryNote}</p>
+        </div>
+
+        <ul class="footer-legal-links">
+          <li>
+            <a href="/privacy/" class="footer-link">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="/terms/" class="footer-link">Terms &amp; Conditions</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-bottom__copy">&copy; {year} FitMate. All rights reserved.</p>
+      <p class="footer-bottom__tagline">{SITE.tagline}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--bg-primary);
+    border-top: 1px solid rgba(163, 192, 255, 0.14);
+    padding-top: clamp(3.5rem, 6vw, 5.5rem);
+    padding-bottom: 2.5rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    align-self: flex-start;
+  }
+
+  .brand-lockup__name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .footer-brand__desc {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    max-width: 22rem;
+  }
+
+  .footer-brand__tagline {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+  }
+
+  .footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+  }
+
+  .footer-social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 50%;
+    background: rgba(23, 28, 39, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+
+  .footer-social-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .footer-col__title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .footer-links,
+  .footer-legal-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-link {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--accent-primary);
+  }
+
+  .footer-col__note {
+    font-size: 0.8rem;
+    color: var(--text-subtle);
+  }
+
+  .footer-contact-box {
+    padding: 0.95rem 1.05rem;
+    border-radius: 0.9rem;
+    background: rgba(17, 21, 29, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .footer-contact-box__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .footer-contact-box__text {
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    line-height: 1.45;
+  }
+
+  .footer-contact-box__sub {
+    font-size: 0.76rem;
+    color: var(--text-subtle);
+    line-height: 1.45;
+  }
+
+  .footer-bottom {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+  }
+
+  .footer-bottom__copy,
+  .footer-bottom__tagline {
+    font-size: 0.82rem;
+    color: var(--text-subtle);
+  }
+</style>

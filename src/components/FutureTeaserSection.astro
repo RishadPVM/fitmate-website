@@ -1,0 +1,179 @@
+---
+import Icons from './Icons.astro';
+---
+
+<section id="future" class="section future-section" aria-labelledby="future-heading">
+  <div class="future-orbits" aria-hidden="true">
+    <span class="orbit orbit--1"></span>
+    <span class="orbit orbit--2"></span>
+    <span class="orbit orbit--3"></span>
+    <span class="orbit-core"></span>
+  </div>
+
+  <div class="container container--narrow future-container">
+    <div class="future-card" data-reveal>
+      <span class="future-kicker">
+        <Icons name="sparkles" size={14} />
+        Something Bigger Is Coming.
+      </span>
+
+      <h2 id="future-heading" class="future-title">This Is Only the Beginning.</h2>
+
+      <div class="future-copy">
+        <p class="lead">
+          We believe the future of fitness can be smarter, more connected, and more inspiring.
+        </p>
+        <p class="future-statement">We’re working towards something bigger.</p>
+        <p class="future-closing">
+          Stay connected. Stay curious. The next chapter is coming.
+        </p>
+      </div>
+
+      <p class="future-whisper">The Future of Fitness Is Closer Than You Think.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .future-section {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(5.5rem, 10vw, 10rem);
+    background: radial-gradient(ellipse at center, rgba(22, 29, 44, 0.7) 0%, #090b10 72%);
+  }
+
+  .future-orbits {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .orbit {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(163, 192, 255, 0.12);
+    animation: orbit-spin 42s linear infinite;
+  }
+
+  .orbit--1 {
+    width: min(74vw, 24rem);
+    height: min(74vw, 24rem);
+    border-top-color: rgba(163, 192, 255, 0.45);
+  }
+
+  .orbit--2 {
+    width: min(98vw, 37rem);
+    height: min(98vw, 37rem);
+    border-right-color: rgba(120, 156, 235, 0.3);
+    animation-direction: reverse;
+    animation-duration: 58s;
+  }
+
+  .orbit--3 {
+    width: min(125vw, 52rem);
+    height: min(125vw, 52rem);
+    border-style: dashed;
+    border-color: rgba(163, 192, 255, 0.08);
+    animation-duration: 85s;
+  }
+
+  .orbit-core {
+    width: 14rem;
+    height: 14rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(163, 192, 255, 0.18) 0%, transparent 70%);
+    filter: blur(28px);
+    animation: pulse-core 6s ease-in-out infinite;
+  }
+
+  @keyframes orbit-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes pulse-core {
+    0%, 100% {
+      opacity: 0.65;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.12);
+    }
+  }
+
+  .future-container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .future-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: clamp(2rem, 5vw, 3.75rem);
+    border-radius: var(--radius-xl);
+    background: rgba(9, 11, 16, 0.56);
+    border: 1px solid rgba(163, 192, 255, 0.16);
+    backdrop-filter: blur(18px);
+  }
+
+  .future-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.38rem 0.95rem;
+    border-radius: var(--radius-pill);
+    background: rgba(163, 192, 255, 0.11);
+    border: 1px solid rgba(163, 192, 255, 0.24);
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .future-title {
+    font-size: clamp(2.15rem, 1.7rem + 2.5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    background: linear-gradient(125deg, #ffffff 15%, var(--accent-primary) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .future-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    max-width: 36rem;
+  }
+
+  .future-statement {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .future-closing {
+    font-size: 1.02rem;
+    color: var(--text-secondary);
+  }
+
+  .future-whisper {
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+</style>

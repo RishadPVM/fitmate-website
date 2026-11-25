@@ -1,0 +1,182 @@
+---
+import { WHY_FITMATE_CONTENT } from '../config/site';
+import Icons from './Icons.astro';
+
+const benefitIcons = [
+  'organized',
+  'info',
+  'attendance',
+  'membership',
+  'consistency',
+  'body',
+  'progress',
+  'connect',
+] as const;
+---
+
+<section id="why-fitmate" class="section section--alt why-fitmate" aria-labelledby="why-heading">
+  <div class="ambient-glow why-fitmate__glow" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="why-fitmate__top">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">{WHY_FITMATE_CONTENT.eyebrow}</span>
+        <h2 id="why-heading" class="display-title">{WHY_FITMATE_CONTENT.headline}</h2>
+        <p class="lead">{WHY_FITMATE_CONTENT.subheadline}</p>
+      </div>
+
+      <div class="why-fitmate__statement" data-reveal style="--reveal-delay: 140ms">
+        <span class="why-fitmate__quote">“Your Gym. Your Goals. Your Progress.”</span>
+      </div>
+    </div>
+
+    <div class="benefits-grid">
+      {WHY_FITMATE_CONTENT.benefits.map((benefit, index) => (
+        <article
+          class={`surface-card benefit-card ${benefit.featured ? 'benefit-card--featured' : ''}`}
+          data-reveal
+          style={`--reveal-delay: ${(index % 4) * 80}ms`}
+        >
+          <div class="benefit-card__head">
+            <span class="benefit-card__icon" aria-hidden="true">
+              <Icons name={benefitIcons[index]} size={21} />
+            </span>
+            <span class="benefit-card__tag">{benefit.accentLabel}</span>
+          </div>
+          <h3 class="benefit-card__title">{benefit.title}</h3>
+          <p class="benefit-card__desc">{benefit.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-fitmate {
+    overflow: hidden;
+  }
+
+  .why-fitmate__glow {
+    top: -8rem;
+    right: -10rem;
+    width: 36rem;
+    height: 36rem;
+    background: radial-gradient(circle, rgba(163, 192, 255, 0.14), transparent 70%);
+  }
+
+  .why-fitmate__top {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  @media (min-width: 960px) {
+    .why-fitmate__top {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .why-fitmate__statement {
+    max-width: 22rem;
+    padding: 1rem 1.35rem;
+    border-left: 2px solid var(--accent-primary);
+    background: rgba(23, 28, 39, 0.45);
+    border-radius: 0 0.85rem 0.85rem 0;
+  }
+
+  .why-fitmate__quote {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.125rem;
+  }
+
+  @media (min-width: 640px) {
+    .benefits-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .benefits-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .benefit-card--featured {
+      grid-column: span 2;
+    }
+  }
+
+  .benefit-card {
+    padding: 1.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .benefit-card--featured {
+    background: linear-gradient(155deg, rgba(31, 39, 56, 0.85), rgba(17, 21, 29, 0.96));
+    border-color: rgba(163, 192, 255, 0.16);
+  }
+
+  .benefit-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .benefit-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.65rem;
+    height: 2.65rem;
+    border-radius: 0.85rem;
+    background: rgba(163, 192, 255, 0.11);
+    border: 1px solid rgba(163, 192, 255, 0.16);
+    color: var(--accent-primary);
+    transition: transform 0.35s var(--ease-editorial), background-color 0.3s ease;
+  }
+
+  .benefit-card:hover .benefit-card__icon {
+    transform: scale(1.06);
+    background: rgba(163, 192, 255, 0.18);
+  }
+
+  .benefit-card__tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+
+  .benefit-card__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  .benefit-card__desc {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+</style>

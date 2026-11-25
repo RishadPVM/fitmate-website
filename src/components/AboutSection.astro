@@ -1,0 +1,108 @@
+---
+const pillars = [
+  {
+    label: 'Connected',
+    text: 'Bringing gyms and members closer inside one thoughtful daily rhythm.',
+  },
+  {
+    label: 'Accessible',
+    text: 'Zero subscription cost for individual gym members on mobile.',
+  },
+  {
+    label: 'Organized',
+    text: 'Clear attendance, membership visibility, and body awareness in one place.',
+  },
+];
+---
+
+<section id="about" class="section section--alt about-section" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-grid">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">08 · About FitMate</span>
+        <h2 id="about-heading" class="display-title">Built Around Your Fitness Journey.</h2>
+        <div class="about-copy">
+          <p class="lead">
+            FitMate was created with a simple vision: make the gym experience more connected, accessible, and organized.
+          </p>
+          <p class="lead">
+            We believe fitness should be about progress, consistency, and building healthier habits.
+          </p>
+          <p class="lead">
+            Our goal is to make every step of your fitness journey more meaningful.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-pillars">
+        {pillars.map((pillar, idx) => (
+          <article class="surface-card about-pillar" data-reveal style={`--reveal-delay: ${idx * 100}ms`}>
+            <span class="about-pillar__num tabular-nums">0{idx + 1}</span>
+            <div>
+              <h3 class="about-pillar__title">{pillar.label}</h3>
+              <p class="about-pillar__text">{pillar.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2.25rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    }
+  }
+
+  .about-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .about-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-pillar {
+    padding: 1.35rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.15rem;
+  }
+
+  .about-pillar:hover {
+    transform: translateX(4px);
+  }
+
+  .about-pillar__num {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    padding-top: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  .about-pillar__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .about-pillar__text {
+    font-size: 0.93rem;
+    line-height: 1.55;
+  }
+</style>

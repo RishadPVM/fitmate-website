@@ -1,0 +1,454 @@
+---
+import { ATTENDANCE_CONTENT } from '../config/site';
+import Icons from './Icons.astro';
+
+const rhythmPillars = [
+  {
+    label: 'Daily Check-In Clarity',
+    detail: 'See completed gym days immediately without manual spreadsheets.',
+  },
+  {
+    label: 'Weekly Streak Rhythm',
+    detail: 'Turn isolated workouts into an intentional weekly cadence.',
+  },
+  {
+    label: 'Built for Momentum',
+    detail: 'Visual progress markers reinforce consistency every time you show up.',
+  },
+];
+---
+
+<section id="attendance" class="section attendance" aria-labelledby="attendance-heading">
+  <div class="container attendance__grid">
+    <div class="attendance__copy">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">{ATTENDANCE_CONTENT.eyebrow}</span>
+        <h2 id="attendance-heading" class="display-title">{ATTENDANCE_CONTENT.headline}</h2>
+        <div class="attendance__paragraphs">
+          {ATTENDANCE_CONTENT.description.map((paragraph) => (
+            <p class="lead">{paragraph}</p>
+          ))}
+        </div>
+      </div>
+
+      <div class="surface-card attendance-rhythm-card" data-reveal style="--reveal-delay: 140ms">
+        <div class="attendance-rhythm-card__top">
+          <span class="attendance-rhythm-card__kicker">Stay Consistent. Stay Connected.</span>
+          <span class="attendance-rhythm-card__pulse" aria-hidden="true">
+            <svg viewBox="0 0 120 28" width="120" height="28" fill="none">
+              <path
+                d="M2 18H28L36 6L46 22L56 10L66 18H118"
+                stroke="#A3C0FF"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </div>
+
+        <ul class="rhythm-pillars">
+          {rhythmPillars.map((pillar, idx) => (
+            <li class="rhythm-pillar">
+              <span class="rhythm-pillar__num tabular-nums">0{idx + 1}</span>
+              <div>
+                <strong class="rhythm-pillar__title">{pillar.label}</strong>
+                <p class="rhythm-pillar__detail">{pillar.detail}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="surface-card attendance-board" data-reveal style="--reveal-delay: 120ms">
+      <div class="attendance-board__header">
+        <div>
+          <span class="attendance-board__badge">{ATTENDANCE_CONTENT.sampleTag}</span>
+          <h3 class="attendance-board__title">Weekly Training Rhythm</h3>
+        </div>
+
+        <div class="consistency-ring" aria-label="Illustrative sample weekly progress: 4 of 5 sessions completed">
+          <svg viewBox="0 0 80 80" width="72" height="72" aria-hidden="true">
+            <circle class="consistency-ring__track" cx="40" cy="40" r="32" />
+            <circle class="consistency-ring__fill" cx="40" cy="40" r="32" data-ring-progress="80" />
+          </svg>
+          <span class="consistency-ring__value tabular-nums">4/5</span>
+        </div>
+      </div>
+
+      <ul class="attendance-list" aria-label="Sample weekly gym attendance schedule">
+        {ATTENDANCE_CONTENT.weeklySchedule.map((item, idx) => {
+          const isCompleted = item.status === 'Completed';
+          return (
+            <li
+              class={`attendance-row ${isCompleted ? 'attendance-row--done' : 'attendance-row--upcoming'}`}
+              style={`--row-delay: ${idx * 75}ms`}
+            >
+              <div class="attendance-row__left">
+                <span class="attendance-row__icon" aria-hidden="true">
+                  <Icons name={isCompleted ? 'check' : 'clock'} size={16} />
+                </span>
+                <div>
+                  <span class="attendance-row__day">{item.day}</span>
+                  <span class="attendance-row__focus">{item.focus}</span>
+                </div>
+              </div>
+              <span class="attendance-row__status">{item.status}</span>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div class="attendance-calendar">
+        <div class="attendance-calendar__top">
+          <span class="attendance-calendar__label">Illustrative Monthly Cadence</span>
+          <div class="attendance-calendar__legend" aria-hidden="true">
+            <span><i class="dot dot--done"></i>Completed</span>
+            <span><i class="dot dot--upcoming"></i>Upcoming</span>
+          </div>
+        </div>
+        <div class="attendance-calendar__grid" role="img" aria-label="Illustrative four-week workout consistency pattern showing regular sessions">
+          {ATTENDANCE_CONTENT.monthlyPattern.map((cell, index) => (
+            <span
+              class={`cal-cell ${cell === 1 ? 'cal-cell--done' : cell === 2 ? 'cal-cell--next' : 'cal-cell--rest'}`}
+              style={`--cell-delay: ${index * 18}ms`}
+            ></span>
+          ))}
+        </div>
+      </div>
+
+      <p class="attendance-board__disclaimer">{ATTENDANCE_CONTENT.sampleDisclaimer}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .attendance__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4.5vw, 4rem);
+    align-items: stretch;
+  }
+
+  @media (min-width: 960px) {
+    .attendance__grid {
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    }
+  }
+
+  .attendance__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .attendance__paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .attendance-rhythm-card {
+    padding: clamp(1.35rem, 2.5vw, 1.85rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .attendance-rhythm-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .attendance-rhythm-card__kicker {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+  }
+
+  .rhythm-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rhythm-pillar {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.95rem;
+  }
+
+  .rhythm-pillar__num {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    padding-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .rhythm-pillar__title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.18rem;
+  }
+
+  .rhythm-pillar__detail {
+    font-size: 0.87rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  /* Board */
+  .attendance-board {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: space-between;
+  }
+
+  .attendance-board__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .attendance-board__badge {
+    display: inline-block;
+    margin-bottom: 0.45rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-pill);
+    background: rgba(163, 192, 255, 0.11);
+    border: 1px solid rgba(163, 192, 255, 0.2);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .attendance-board__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .consistency-ring {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .consistency-ring__track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 6;
+  }
+
+  .consistency-ring__fill {
+    fill: none;
+    stroke: var(--accent-primary);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 201.06;
+    stroke-dashoffset: 201.06;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    transition: stroke-dashoffset 1.25s var(--ease-editorial) 0.25s;
+  }
+
+  :global(.is-visible) .consistency-ring__fill {
+    stroke-dashoffset: 40.21;
+  }
+
+  .consistency-ring__value {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .attendance-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .attendance-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    border-radius: 0.9rem;
+    background: rgba(9, 11, 16, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform 0.3s var(--ease-editorial), border-color 0.3s ease;
+  }
+
+  .attendance-row:hover {
+    transform: translateX(4px);
+    border-color: rgba(163, 192, 255, 0.25);
+  }
+
+  .attendance-row__left {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .attendance-row__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .attendance-row--done .attendance-row__icon {
+    background: rgba(163, 192, 255, 0.16);
+    color: var(--accent-primary);
+  }
+
+  .attendance-row--upcoming .attendance-row__icon {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-secondary);
+  }
+
+  .attendance-row__day {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .attendance-row__focus {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-subtle);
+  }
+
+  .attendance-row__status {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.28rem 0.7rem;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+
+  .attendance-row--done .attendance-row__status {
+    background: rgba(163, 192, 255, 0.12);
+    color: var(--accent-primary);
+  }
+
+  .attendance-row--upcoming .attendance-row__status {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+  }
+
+  .attendance-calendar {
+    padding: 1rem 1.1rem;
+    border-radius: 1rem;
+    background: rgba(9, 11, 16, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .attendance-calendar__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.85rem;
+  }
+
+  .attendance-calendar__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .attendance-calendar__legend {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+  }
+
+  .attendance-calendar__legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .dot {
+    width: 0.52rem;
+    height: 0.52rem;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .dot--done {
+    background: var(--accent-primary);
+  }
+
+  .dot--upcoming {
+    background: rgba(163, 192, 255, 0.35);
+    border: 1px dashed var(--accent-primary);
+  }
+
+  .attendance-calendar__grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .cal-cell {
+    aspect-ratio: 1.55 / 1;
+    border-radius: 0.35rem;
+    transition: transform 0.3s ease, opacity 0.4s ease;
+    transition-delay: var(--cell-delay, 0ms);
+  }
+
+  .cal-cell--done {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    box-shadow: 0 4px 12px rgba(120, 156, 235, 0.2);
+  }
+
+  .cal-cell--next {
+    background: rgba(163, 192, 255, 0.16);
+    border: 1px dashed var(--accent-primary);
+  }
+
+  .cal-cell--rest {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .attendance-board__disclaimer {
+    font-size: 0.76rem;
+    line-height: 1.45;
+    color: var(--text-subtle);
+  }
+</style>

@@ -1,0 +1,468 @@
+---
+import { HERO_CONTENT } from '../config/site';
+import Icons from './Icons.astro';
+import OptimizedImage from './OptimizedImage.astro';
+import StoreBadges from './StoreBadges.astro';
+
+let wordCounter = 0;
+const lines = HERO_CONTENT.headlineLines.map((line) =>
+  line.split(' ').map((word) => ({
+    word,
+    delay: (wordCounter++) * 65 + 120,
+  }))
+);
+---
+
+<section id="hero" class="hero hero-ready" aria-labelledby="hero-heading">
+  <div class="hero__backdrop" data-parallax="0.16" aria-hidden="true">
+    <OptimizedImage
+      name="hero-training"
+      alt="Athlete performing strength training inside a modern dark architectural gym with cool blue ambient light"
+      width={1280}
+      height={720}
+      sizes="100vw"
+      eager={true}
+      class="hero__picture"
+      imgClass="hero__img"
+    />
+    <div class="hero__scrim"></div>
+    <div class="hero__ambient-orb"></div>
+  </div>
+
+  <div class="container hero__container">
+    <div class="hero__content">
+      <div class="eyebrow hero__eyebrow" data-reveal style="--reveal-delay: 40ms">
+        {HERO_CONTENT.eyebrow}
+      </div>
+
+      <h1 id="hero-heading" class="hero__title">
+        {lines.map((lineWords, lineIdx) => (
+          <span class={`hero__line ${lineIdx === 1 ? 'hero__line--accent' : ''}`}>
+            {lineWords.map((item) => (
+              <>
+                <span class="word-mask">
+                  <span class="word-inner" style={`--word-delay: ${item.delay}ms`}>
+                    {item.word}
+                  </span>
+                </span>{' '}
+              </>
+            ))}
+          </span>
+        ))}
+      </h1>
+
+      <p class="hero__description" data-reveal style="--reveal-delay: 260ms">
+        {HERO_CONTENT.description}
+      </p>
+
+      <div class="hero__ctas" data-reveal style="--reveal-delay: 360ms">
+        <a href="#download" class="btn btn--primary magnetic-btn" data-magnetic>
+          {HERO_CONTENT.primaryCta}
+          <Icons name="arrow-right" size={17} />
+        </a>
+        <a href="#intro" class="btn btn--secondary">
+          {HERO_CONTENT.secondaryCta}
+        </a>
+      </div>
+
+      <div class="hero__badges" data-reveal style="--reveal-delay: 450ms">
+        <StoreBadges variant="compact" />
+        <p class="hero__free-note">
+          <span class="hero__free-dot" aria-hidden="true"></span>
+          100% Free for Gym Members · iOS &amp; Android
+        </p>
+      </div>
+    </div>
+
+    <aside class="hero__aside" aria-label="FitMate Companion Highlights" data-reveal style="--reveal-delay: 420ms">
+      <div class="hero-card hero-card--primary" data-tilt>
+        <div class="hero-card__header">
+          <span class="hero-card__label">Connected Gym Rhythm</span>
+          <span class="hero-card__pill">Illustrative View</span>
+        </div>
+        <div class="hero-card__week">
+          {['M', 'T', 'W', 'T', 'F'].map((day, idx) => (
+            <div class={`hero-day ${idx < 4 ? 'hero-day--done' : 'hero-day--next'}`}>
+              <span class="hero-day__dot" aria-hidden="true">
+                {idx < 4 ? <Icons name="check" size={11} /> : <Icons name="clock" size={11} />}
+              </span>
+              <span class="hero-day__letter">{day}</span>
+            </div>
+          ))}
+        </div>
+        <p class="hero-card__caption">Stay connected with your gym &amp; daily consistency.</p>
+      </div>
+
+      <div class="hero-card hero-card--secondary">
+        <span class="hero-card__icon" aria-hidden="true">
+          <Icons name="body" size={18} />
+        </span>
+        <div>
+          <strong class="hero-card__mini-title">Body &amp; BMI Insights</strong>
+          <span class="hero-card__mini-sub">Clear, accessible wellness awareness</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <a href="#intro" class="hero__scroll" aria-label="Scroll down to discover FitMate">
+    <span class="hero__scroll-label">Scroll</span>
+    <span class="hero__scroll-track" aria-hidden="true">
+      <span class="hero__scroll-thumb"></span>
+    </span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-top: calc(var(--nav-height) + 2.5rem);
+    padding-bottom: 5rem;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+  }
+
+  .hero__backdrop {
+    position: absolute;
+    inset: -4% 0;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .hero__picture {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  :global(.hero__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 68% center;
+    opacity: 0;
+    transform: scale(1.06);
+    animation: hero-image-reveal 1.4s var(--ease-editorial) 0.1s forwards;
+  }
+
+  @keyframes hero-image-reveal {
+    to {
+      opacity: 0.92;
+      transform: scale(1);
+    }
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, #090b10 0%, rgba(9, 11, 16, 0.94) 44%, rgba(9, 11, 16, 0.68) 76%, rgba(9, 11, 16, 0.48) 100%),
+      linear-gradient(180deg, rgba(9, 11, 16, 0.65) 0%, rgba(9, 11, 16, 0.15) 32%, rgba(9, 11, 16, 0.95) 95%, #090b10 100%);
+  }
+
+  @media (min-width: 1024px) {
+    .hero__scrim {
+      background:
+        linear-gradient(90deg, #090b10 0%, rgba(9, 11, 16, 0.92) 38%, rgba(9, 11, 16, 0.56) 68%, rgba(9, 11, 16, 0.35) 100%),
+        linear-gradient(180deg, rgba(9, 11, 16, 0.58) 0%, rgba(9, 11, 16, 0) 28%, rgba(9, 11, 16, 0.94) 94%, #090b10 100%);
+    }
+  }
+
+  .hero__ambient-orb {
+    position: absolute;
+    top: 12%;
+    left: 10%;
+    width: 34rem;
+    height: 34rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(163, 192, 255, 0.14) 0%, transparent 70%);
+    filter: blur(60px);
+  }
+
+  .hero__container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+    align-items: end;
+  }
+
+  @media (min-width: 1024px) {
+    .hero__container {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+      gap: 3rem;
+      align-items: center;
+    }
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 44rem;
+  }
+
+  .hero__title {
+    font-size: var(--text-hero);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.03;
+    color: var(--text-primary);
+  }
+
+  .hero__line {
+    display: block;
+  }
+
+  .hero__line--accent {
+    background: linear-gradient(125deg, #ffffff 10%, var(--accent-primary) 70%, var(--accent-secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero__description {
+    font-size: clamp(1.03rem, 0.96rem + 0.45vw, 1.24rem);
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 37rem;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.95rem;
+    padding-top: 0.35rem;
+  }
+
+  .hero__badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding-top: 0.5rem;
+  }
+
+  .hero__free-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.83rem;
+    color: var(--text-secondary);
+  }
+
+  .hero__free-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    box-shadow: 0 0 12px var(--accent-primary);
+  }
+
+  /* Subtle floating companion cards (desktop/tablet) */
+  .hero__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 21rem;
+  }
+
+  @media (min-width: 1024px) {
+    .hero__aside {
+      justify-self: end;
+      align-self: end;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .hero-card {
+    padding: 1.2rem 1.25rem;
+    border-radius: 1.25rem;
+    background: rgba(17, 21, 29, 0.72);
+    border: 1px solid rgba(163, 192, 255, 0.16);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 24px 55px -16px rgba(0, 0, 0, 0.7);
+  }
+
+  .hero-card--primary {
+    animation: subtle-float 7s ease-in-out infinite;
+  }
+
+  .hero-card--secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.95rem 1.15rem;
+    animation: subtle-float 7s ease-in-out 1.4s infinite;
+  }
+
+  @keyframes subtle-float {
+    0%, 100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -6px, 0);
+    }
+  }
+
+  .hero-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .hero-card__label {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .hero-card__pill {
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.55rem;
+    border-radius: var(--radius-pill);
+    background: rgba(163, 192, 255, 0.12);
+    color: var(--accent-primary);
+  }
+
+  .hero-card__week {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.45rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.48rem 0.2rem;
+    border-radius: 0.7rem;
+    background: rgba(23, 28, 39, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .hero-day--done .hero-day__dot {
+    background: rgba(163, 192, 255, 0.18);
+    color: var(--accent-primary);
+  }
+
+  .hero-day--next .hero-day__dot {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-secondary);
+  }
+
+  .hero-day__dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+  }
+
+  .hero-day__letter {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .hero-card__caption {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+  }
+
+  .hero-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 0.75rem;
+    background: rgba(163, 192, 255, 0.14);
+    color: var(--accent-primary);
+    flex-shrink: 0;
+  }
+
+  .hero-card__mini-title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .hero-card__mini-sub {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+  }
+
+  /* Scroll Indicator */
+  .hero__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 1.35rem;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-secondary);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 768px) {
+    .hero__scroll {
+      display: inline-flex;
+    }
+  }
+
+  .hero__scroll-track {
+    width: 1.25rem;
+    height: 2.1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(163, 192, 255, 0.35);
+    display: flex;
+    justify-content: center;
+    padding-top: 0.32rem;
+  }
+
+  .hero__scroll-thumb {
+    width: 0.22rem;
+    height: 0.48rem;
+    border-radius: 999px;
+    background: var(--accent-primary);
+    animation: scroll-wheel 2s var(--ease-editorial) infinite;
+  }
+
+  @keyframes scroll-wheel {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    35% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(0.7rem);
+    }
+  }
+</style>

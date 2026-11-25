@@ -1,0 +1,786 @@
+---
+import { SHOWCASE_SCREENS } from '../config/site';
+import Icons from './Icons.astro';
+---
+
+<section id="app-showcase" class="section showcase" aria-labelledby="showcase-heading">
+  <div class="ambient-glow showcase__glow" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="section-header section-header--center" data-reveal>
+      <span class="eyebrow">06 · Companion Experience</span>
+      <h2 id="showcase-heading" class="display-title">Everything You Need to Stay on Track.</h2>
+      <p class="lead">
+        Explore conceptual interface previews illustrating how FitMate keeps attendance, membership clarity, and body
+        insights seamlessly within reach.
+      </p>
+      <span class="showcase__preview-pill">Conceptual Interface Preview · Illustrative Mockups</span>
+    </div>
+
+    <div class="showcase-stage">
+      <!-- Interactive Screen Tabs -->
+      <div class="showcase-controls" data-reveal>
+        <div class="showcase-tabs" role="tablist" aria-label="Conceptual FitMate application screens">
+          {SHOWCASE_SCREENS.map((screen, idx) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${screen.id}`}
+              aria-selected={idx === 0 ? 'true' : 'false'}
+              aria-controls={`panel-${screen.id}`}
+              class={`showcase-tab ${idx === 0 ? 'is-active' : ''}`}
+              data-showcase-tab={screen.id}
+            >
+              <span class="showcase-tab__num tabular-nums">0{idx + 1}</span>
+              <span class="showcase-tab__text">
+                <strong>{screen.label}</strong>
+                <span>{screen.title}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- 3D Layered Smartphone Stage -->
+      <div class="showcase-phones" data-reveal style="--reveal-delay: 140ms">
+        <!-- Layered secondary angled ghost mockup (desktop ambient depth) -->
+        <div class="phone-ghost" aria-hidden="true">
+          <div class="phone-ghost__screen">
+            <span class="ghost-tag">Weekly Rhythm</span>
+            <div class="ghost-bars">
+              <span style="height: 55%"></span>
+              <span style="height: 82%"></span>
+              <span style="height: 68%"></span>
+              <span style="height: 92%"></span>
+              <span style="height: 45%"></span>
+            </div>
+            <div class="ghost-line"></div>
+            <div class="ghost-line ghost-line--short"></div>
+          </div>
+        </div>
+
+        <!-- Main Interactive 3D Phone Frame -->
+        <div class="phone-frame" data-tilt>
+          <div class="phone-frame__bezel">
+            <div class="phone-frame__island" aria-hidden="true"></div>
+            <div class="phone-frame__status" aria-hidden="true">
+              <span>FitMate</span>
+              <span>Illustrative</span>
+            </div>
+
+            <div class="phone-screens">
+              <!-- 01: Fitness Dashboard -->
+              <div
+                id="panel-dashboard"
+                role="tabpanel"
+                aria-labelledby="tab-dashboard"
+                class="phone-panel is-active"
+                data-showcase-panel="dashboard"
+              >
+                <div class="app-head">
+                  <span class="app-kicker">Today · Connected Club</span>
+                  <h3 class="app-title">Fitness Dashboard</h3>
+                </div>
+
+                <div class="app-card app-card--highlight">
+                  <div class="app-card__row">
+                    <span>Weekly Streak</span>
+                    <span class="app-chip">Active</span>
+                  </div>
+                  <strong class="app-stat tabular-nums">4 Visits This Week</strong>
+                  <div class="app-week-dots">
+                    <span class="on">M</span>
+                    <span class="on">T</span>
+                    <span class="on">W</span>
+                    <span class="on">T</span>
+                    <span class="next">F</span>
+                    <span>S</span>
+                    <span>S</span>
+                  </div>
+                </div>
+
+                <div class="app-mini-grid">
+                  <div class="app-card">
+                    <span class="app-mini-label">Membership</span>
+                    <strong class="app-mini-val">Active Plan</strong>
+                  </div>
+                  <div class="app-card">
+                    <span class="app-mini-label">BMI Screening</span>
+                    <strong class="app-mini-val tabular-nums">22.9 · Normal</strong>
+                  </div>
+                </div>
+
+                <div class="app-card">
+                  <div class="app-card__row">
+                    <span>Next Routine Focus</span>
+                    <Icons name="arrow-right" size={14} />
+                  </div>
+                  <p class="app-note">Keep your rhythm steady with consistent check-ins.</p>
+                </div>
+              </div>
+
+              <!-- 02: Attendance Overview -->
+              <div
+                id="panel-attendance"
+                role="tabpanel"
+                aria-labelledby="tab-attendance"
+                class="phone-panel"
+                data-showcase-panel="attendance"
+                hidden
+              >
+                <div class="app-head">
+                  <span class="app-kicker">Habit Momentum</span>
+                  <h3 class="app-title">Attendance Overview</h3>
+                </div>
+
+                <div class="app-card app-card--highlight">
+                  <span class="app-mini-label">Sample Weekly Cadence</span>
+                  <div class="app-bars">
+                    <div class="app-bar"><span style="height: 85%"></span><i>M</i></div>
+                    <div class="app-bar"><span style="height: 92%"></span><i>T</i></div>
+                    <div class="app-bar"><span style="height: 78%"></span><i>W</i></div>
+                    <div class="app-bar"><span style="height: 88%"></span><i>T</i></div>
+                    <div class="app-bar app-bar--upcoming"><span style="height: 55%"></span><i>F</i></div>
+                  </div>
+                </div>
+
+                <div class="app-list">
+                  <div class="app-list__item"><span>Monday</span><span class="app-chip">Completed</span></div>
+                  <div class="app-list__item"><span>Tuesday</span><span class="app-chip">Completed</span></div>
+                  <div class="app-list__item"><span>Wednesday</span><span class="app-chip">Completed</span></div>
+                  <div class="app-list__item"><span>Thursday</span><span class="app-chip">Completed</span></div>
+                  <div class="app-list__item"><span>Friday</span><span class="app-chip app-chip--muted">Upcoming</span></div>
+                </div>
+              </div>
+
+              <!-- 03: Membership Information -->
+              <div
+                id="panel-membership"
+                role="tabpanel"
+                aria-labelledby="tab-membership"
+                class="phone-panel"
+                data-showcase-panel="membership"
+                hidden
+              >
+                <div class="app-head">
+                  <span class="app-kicker">Club Connection</span>
+                  <h3 class="app-title">Membership Information</h3>
+                </div>
+
+                <div class="app-pass">
+                  <div class="app-pass__top">
+                    <span class="app-pass__brand">FitMate Member Pass</span>
+                    <span class="app-chip">Active</span>
+                  </div>
+                  <strong class="app-pass__gym">Connected Partner Gym</strong>
+                  <span class="app-pass__meta">Clear status &amp; plan visibility</span>
+                </div>
+
+                <div class="app-list">
+                  <div class="app-list__item"><span>FitMate App Access</span><strong>100% Free</strong></div>
+                  <div class="app-list__item"><span>Gym Plan Status</span><strong>Active Overview</strong></div>
+                  <div class="app-list__item"><span>Club Announcements</span><strong>Up to Date</strong></div>
+                </div>
+              </div>
+
+              <!-- 04: BMI Insights -->
+              <div
+                id="panel-bmi"
+                role="tabpanel"
+                aria-labelledby="tab-bmi"
+                class="phone-panel"
+                data-showcase-panel="bmi"
+                hidden
+              >
+                <div class="app-head">
+                  <span class="app-kicker">Body Awareness</span>
+                  <h3 class="app-title">BMI Insights</h3>
+                </div>
+
+                <div class="app-card app-card--highlight">
+                  <div class="app-card__row">
+                    <span>Sample Screening</span>
+                    <span class="app-chip">Normal range</span>
+                  </div>
+                  <strong class="app-big-num tabular-nums">22.9</strong>
+                  <div class="app-scale-mini">
+                    <span class="s1"></span>
+                    <span class="s2"></span>
+                    <span class="s3"></span>
+                    <span class="s4"></span>
+                  </div>
+                </div>
+
+                <div class="app-card">
+                  <span class="app-mini-label">Educational Reminder</span>
+                  <p class="app-note">
+                    BMI is a screening indicator derived from height and weight, not a medical diagnosis.
+                  </p>
+                </div>
+              </div>
+
+              <!-- 05: Health Metrics -->
+              <div
+                id="panel-metrics"
+                role="tabpanel"
+                aria-labelledby="tab-metrics"
+                class="phone-panel"
+                data-showcase-panel="metrics"
+                hidden
+              >
+                <div class="app-head">
+                  <span class="app-kicker">Body Measurements</span>
+                  <h3 class="app-title">Health Metrics</h3>
+                </div>
+
+                <div class="app-mini-grid">
+                  <div class="app-card">
+                    <span class="app-mini-label">Height Reference</span>
+                    <strong class="app-mini-val tabular-nums">175 cm</strong>
+                  </div>
+                  <div class="app-card">
+                    <span class="app-mini-label">Weight Check-In</span>
+                    <strong class="app-mini-val tabular-nums">70.0 kg</strong>
+                  </div>
+                </div>
+
+                <div class="app-card app-card--highlight">
+                  <span class="app-mini-label">Measurement Awareness</span>
+                  <p class="app-note">
+                    Track changes gradually alongside consistent workouts to see meaningful lifestyle trends.
+                  </p>
+                </div>
+              </div>
+
+              <!-- 06: Personal Progress -->
+              <div
+                id="panel-progress"
+                role="tabpanel"
+                aria-labelledby="tab-progress"
+                class="phone-panel"
+                data-showcase-panel="progress"
+                hidden
+              >
+                <div class="app-head">
+                  <span class="app-kicker">Your Journey</span>
+                  <h3 class="app-title">Personal Progress</h3>
+                </div>
+
+                <div class="app-card app-card--highlight">
+                  <span class="app-mini-label">Habit Consistency Focus</span>
+                  <strong class="app-stat">Every Session Builds Momentum</strong>
+                  <p class="app-note">
+                    Attendance cadence, club updates, and body insights aligned in one clear view.
+                  </p>
+                </div>
+
+                <div class="app-list">
+                  <div class="app-list__item"><span>Consistency Rhythm</span><span class="app-chip">Steady</span></div>
+                  <div class="app-list__item"><span>Health Screening</span><span class="app-chip">Tracked</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="phone-frame__home-bar" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Floating Caption Pill -->
+        <div class="showcase-floating-note" id="showcase-caption" aria-live="polite">
+          {SHOWCASE_SCREENS[0].caption}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase {
+    overflow: hidden;
+  }
+
+  .showcase__glow {
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 42rem;
+    height: 30rem;
+    background: radial-gradient(circle, rgba(163, 192, 255, 0.14), transparent 70%);
+  }
+
+  .showcase__preview-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: rgba(23, 28, 39, 0.85);
+    border: 1px solid rgba(163, 192, 255, 0.22);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .showcase-stage {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .showcase-stage {
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 3.5rem;
+    }
+  }
+
+  .showcase-tabs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  @media (min-width: 560px) and (max-width: 959px) {
+    .showcase-tabs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .showcase-tab {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    text-align: left;
+    padding: 1rem 1.2rem;
+    border-radius: 1rem;
+    background: rgba(17, 21, 29, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    cursor: pointer;
+    transition:
+      transform 0.3s var(--ease-editorial),
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+  }
+
+  .showcase-tab:hover {
+    transform: translateX(4px);
+    border-color: rgba(163, 192, 255, 0.28);
+  }
+
+  .showcase-tab.is-active {
+    background: linear-gradient(135deg, rgba(163, 192, 255, 0.14), rgba(23, 28, 39, 0.95));
+    border-color: rgba(163, 192, 255, 0.45);
+  }
+
+  .showcase-tab__num {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    flex-shrink: 0;
+  }
+
+  .showcase-tab__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .showcase-tab__text strong {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .showcase-tab__text span {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  /* 3D Phone Stage */
+  .showcase-phones {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    perspective: 1400px;
+  }
+
+  .phone-ghost {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .phone-ghost {
+      display: block;
+      position: absolute;
+      right: 2%;
+      top: 10%;
+      width: 15.5rem;
+      height: 29rem;
+      border-radius: 2.25rem;
+      background: linear-gradient(160deg, rgba(29, 35, 49, 0.72), rgba(11, 15, 22, 0.9));
+      border: 1px solid rgba(163, 192, 255, 0.14);
+      transform: rotateY(-18deg) rotateZ(6deg) translateZ(-40px);
+      padding: 1.5rem 1.25rem;
+      opacity: 0.65;
+      pointer-events: none;
+    }
+  }
+
+  .phone-ghost__screen {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ghost-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .ghost-bars {
+    height: 9rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    align-items: end;
+  }
+
+  .ghost-bars span {
+    border-radius: 0.4rem;
+    background: linear-gradient(180deg, var(--accent-primary), rgba(120, 156, 235, 0.15));
+  }
+
+  .ghost-line {
+    height: 0.6rem;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .ghost-line--short {
+    width: 60%;
+  }
+
+  .phone-frame {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 20.5rem);
+    border-radius: 2.75rem;
+    padding: 0.65rem;
+    background: linear-gradient(155deg, #2b3344 0%, #10141d 45%, #1d2433 100%);
+    box-shadow:
+      0 35px 80px -20px rgba(0, 0, 0, 0.88),
+      0 0 0 1px rgba(163, 192, 255, 0.24),
+      inset 0 1px 1px rgba(255, 255, 255, 0.18);
+    transform-style: preserve-3d;
+  }
+
+  .phone-frame__bezel {
+    position: relative;
+    border-radius: 2.2rem;
+    background: linear-gradient(180deg, #0d1119 0%, #090b10 100%);
+    padding: 1rem 1.05rem 1.25rem;
+    min-height: 33.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .phone-frame__island {
+    width: 5.5rem;
+    height: 1.35rem;
+    margin: 0 auto 0.65rem;
+    border-radius: 999px;
+    background: #040507;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .phone-frame__status {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-subtle);
+    margin-bottom: 1rem;
+  }
+
+  .phone-screens {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    animation: phone-panel-enter 0.4s var(--ease-editorial);
+  }
+
+  .phone-panel[hidden] {
+    display: none;
+  }
+
+  @keyframes phone-panel-enter {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .app-head {
+    margin-bottom: 0.2rem;
+  }
+
+  .app-kicker {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+  }
+
+  .app-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 0.15rem;
+  }
+
+  .app-card {
+    padding: 0.9rem;
+    border-radius: 1rem;
+    background: rgba(23, 28, 39, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .app-card--highlight {
+    background: linear-gradient(150deg, rgba(163, 192, 255, 0.14), rgba(23, 28, 39, 0.92));
+    border-color: rgba(163, 192, 255, 0.25);
+  }
+
+  .app-card__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
+  .app-chip {
+    font-size: 0.66rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-pill);
+    background: rgba(163, 192, 255, 0.18);
+    color: var(--accent-primary);
+  }
+
+  .app-chip--muted {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+  }
+
+  .app-stat {
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    color: var(--text-primary);
+  }
+
+  .app-big-num {
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    font-weight: 800;
+    line-height: 1.05;
+  }
+
+  .app-week-dots {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+  }
+
+  .app-week-dots span {
+    aspect-ratio: 1;
+    border-radius: 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-subtle);
+  }
+
+  .app-week-dots span.on {
+    background: var(--accent-primary);
+    color: #090b10;
+  }
+
+  .app-week-dots span.next {
+    border: 1px dashed var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .app-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .app-mini-label {
+    font-size: 0.68rem;
+    color: var(--text-subtle);
+  }
+
+  .app-mini-val {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+  }
+
+  .app-note {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+  }
+
+  .app-bars {
+    height: 6.2rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    align-items: end;
+    padding-top: 0.5rem;
+  }
+
+  .app-bar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.3rem;
+  }
+
+  .app-bar span {
+    width: 100%;
+    border-radius: 0.35rem;
+    background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+  }
+
+  .app-bar--upcoming span {
+    background: rgba(163, 192, 255, 0.25);
+    border: 1px dashed var(--accent-primary);
+  }
+
+  .app-bar i {
+    font-style: normal;
+    font-size: 0.65rem;
+    color: var(--text-subtle);
+  }
+
+  .app-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .app-list__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.75rem;
+    background: rgba(23, 28, 39, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.78rem;
+  }
+
+  .app-pass {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: linear-gradient(145deg, #212b40, #121722);
+    border: 1px solid rgba(163, 192, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .app-pass__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .app-pass__brand {
+    font-size: 0.72rem;
+    color: var(--accent-primary);
+    font-weight: 700;
+  }
+
+  .app-pass__gym {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+  }
+
+  .app-pass__meta {
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+  }
+
+  .app-scale-mini {
+    display: grid;
+    grid-template-columns: 14fr 26fr 20fr 40fr;
+    gap: 2px;
+    height: 0.42rem;
+    margin-top: 0.35rem;
+  }
+
+  .app-scale-mini span {
+    border-radius: 99px;
+  }
+
+  .app-scale-mini .s1 { background: var(--bmi-underweight); }
+  .app-scale-mini .s2 { background: var(--bmi-normal); }
+  .app-scale-mini .s3 { background: var(--bmi-overweight); }
+  .app-scale-mini .s4 { background: var(--bmi-obesity); }
+
+  .phone-frame__home-bar {
+    width: 6.5rem;
+    height: 0.28rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    margin: 1rem auto 0;
+  }
+
+  .showcase-floating-note {
+    max-width: 24rem;
+    text-align: center;
+    padding: 0.75rem 1.1rem;
+    border-radius: var(--radius-pill);
+    background: rgba(17, 21, 29, 0.82);
+    border: 1px solid rgba(163, 192, 255, 0.18);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+</style>

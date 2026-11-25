@@ -1,0 +1,197 @@
+---
+import Icons from './Icons.astro';
+
+const highlights = [
+  'No FitMate subscription fee for members.',
+  'Access to the FitMate user experience for free.',
+  'Connect directly with your participating gym.',
+  'Stay informed about your fitness journey.',
+];
+---
+
+<section id="free-for-members" class="section free-section" aria-labelledby="free-heading">
+  <div class="container">
+    <div class="surface-card free-banner" data-reveal>
+      <div class="free-banner__glow" aria-hidden="true"></div>
+
+      <div class="free-banner__grid">
+        <div class="free-banner__content">
+          <div class="free-badge" role="status" aria-label="100 percent free for members">
+            <Icons name="shield" size={16} />
+            <span>100% FREE FOR MEMBERS</span>
+          </div>
+
+          <h2 id="free-heading" class="display-title">
+            Your Fitness Companion. Absolutely Free.
+          </h2>
+
+          <p class="lead">
+            Getting started with FitMate costs you nothing. FitMate is completely free for gym members. You can enjoy
+            the user experience without paying any subscription fee to FitMate.
+          </p>
+
+          <div class="free-model-box">
+            <h3 class="free-model-box__title">How FitMate Stays Free for You</h3>
+            <p class="free-model-box__text">
+              Gyms pay for the FitMate platform. Individual members can use FitMate completely free.
+            </p>
+            <p class="free-model-box__note">
+              Please note: Your regular gym membership and facility services are managed and priced independently by
+              your gym.
+            </p>
+          </div>
+        </div>
+
+        <div class="free-banner__highlights">
+          <ul class="free-list">
+            {highlights.map((item, idx) => (
+              <li class="free-list__item" style={`--reveal-delay: ${idx * 80}ms`}>
+                <span class="free-list__check" aria-hidden="true">
+                  <Icons name="check" size={16} />
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="free-banner__action">
+            <a href="#download" class="btn btn--primary">
+              Get Started Free
+              <Icons name="arrow-right" size={17} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .free-banner {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2rem, 4.5vw, 4rem);
+    background: linear-gradient(145deg, rgba(25, 32, 47, 0.9), rgba(11, 15, 22, 0.97));
+    border-color: rgba(163, 192, 255, 0.22);
+  }
+
+  .free-banner__glow {
+    position: absolute;
+    top: -6rem;
+    right: -6rem;
+    width: 26rem;
+    height: 26rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(163, 192, 255, 0.16), transparent 68%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  .free-banner__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .free-banner__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
+  }
+
+  .free-banner__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .free-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(135deg, rgba(163, 192, 255, 0.2), rgba(120, 156, 235, 0.12));
+    border: 1px solid rgba(163, 192, 255, 0.42);
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+  }
+
+  .free-model-box {
+    margin-top: 0.35rem;
+    padding: 1.15rem 1.35rem;
+    border-radius: 1rem;
+    background: rgba(9, 11, 16, 0.62);
+    border: 1px solid rgba(163, 192, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .free-model-box__title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .free-model-box__text {
+    font-size: 0.95rem;
+    color: var(--accent-primary);
+    font-weight: 500;
+  }
+
+  .free-model-box__note {
+    font-size: 0.8rem;
+    color: var(--text-subtle);
+    line-height: 1.5;
+  }
+
+  .free-banner__highlights {
+    padding: clamp(1.35rem, 2.5vw, 2rem);
+    border-radius: var(--radius-lg);
+    background: rgba(9, 11, 16, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .free-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .free-list__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .free-list__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    background: rgba(163, 192, 255, 0.16);
+    color: var(--accent-primary);
+    flex-shrink: 0;
+    margin-top: 0.08rem;
+  }
+
+  .free-banner__action {
+    display: flex;
+  }
+</style>

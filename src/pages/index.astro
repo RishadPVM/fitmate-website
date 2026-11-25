@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import BrandIntro from '../components/BrandIntro.astro';
+import WhyFitMate from '../components/WhyFitMate.astro';
+import AttendanceSection from '../components/AttendanceSection.astro';
+import HealthBmiSection from '../components/HealthBmiSection.astro';
+import FreeForMembersSection from '../components/FreeForMembersSection.astro';
+import BetterExperienceSection from '../components/BetterExperienceSection.astro';
+import AppShowcaseSection from '../components/AppShowcaseSection.astro';
+import DownloadSection from '../components/DownloadSection.astro';
+import FutureTeaserSection from '../components/FutureTeaserSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import FinalCtaSection from '../components/FinalCtaSection.astro';
+---
+
+<BaseLayout isHome={true} canonicalPath="/">
+  <Hero />
+  <div class="section-divider" aria-hidden="true"></div>
+  <BrandIntro />
+  <WhyFitMate />
+  <AttendanceSection />
+  <HealthBmiSection />
+  <FreeForMembersSection />
+  <BetterExperienceSection />
+  <AppShowcaseSection />
+  <DownloadSection />
+  <FutureTeaserSection />
+  <AboutSection />
+  <FaqSection />
+  <FinalCtaSection />
+</BaseLayout>

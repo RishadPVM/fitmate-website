@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icons from '../components/Icons.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy | FitMate"
+  description="Read the official FitMate Privacy Policy covering website visits, the browser-based BMI tool, and member gym companion experiences."
+  canonicalPath="/privacy/"
+  isHome={false}
+  breadcrumbLabel="Privacy Policy"
+>
+  <section class="legal-page">
+    <div class="container container--narrow">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Privacy Policy</span>
+      </nav>
+
+      <header class="legal-header">
+        <span class="eyebrow">Legal &amp; Trust</span>
+        <h1 class="display-title">Privacy Policy</h1>
+        <p class="lead">
+          FitMate respects your privacy and keeps your fitness experience transparent, organized, and member-first.
+        </p>
+      </header>
+
+      <div class="legal-body surface-card">
+        <article class="legal-block">
+          <h2>1. Purpose of This Website</h2>
+          <p>
+            This official FitMate website provides public product information for gym members and fitness clubs. It
+            does not require user registration, account creation, or payment processing to browse information or use
+            the interactive educational tools on this page.
+          </p>
+        </article>
+
+        <article class="legal-block">
+          <h2>2. Interactive BMI Calculator</h2>
+          <p>
+            All height and weight values entered into the on-page BMI calculator are processed solely inside your web
+            browser in real time to display an illustrative educational screening figure. Values entered on this public
+            website are not transmitted, stored, or shared.
+          </p>
+        </article>
+
+        <article class="legal-block">
+          <h2>3. App Experience &amp; Participating Gyms</h2>
+          <p>
+            Within the mobile FitMate companion experience, member details such as attendance and gym membership
+            visibility are presented solely to support your connection with your participating gym. FitMate is free for
+            individual gym members; gyms contract directly for the FitMate platform.
+          </p>
+        </article>
+
+        <article class="legal-block">
+          <h2>4. Contact &amp; Updates</h2>
+          <p>
+            Official FitMate privacy inquiry channels will be published here upon full public directory release. Until
+            then, members may also reach out through their participating fitness club regarding club-specific records.
+          </p>
+        </article>
+      </div>
+
+      <div class="legal-back">
+        <a href="/" class="btn btn--secondary">
+          <Icons name="arrow-right" size={16} class="legal-back__icon" />
+          Back to FitMate Home
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding-top: calc(var(--nav-height) + 3.5rem);
+    padding-bottom: clamp(4rem, 7vw, 6.5rem);
+  }
+
+  .breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-subtle);
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--accent-primary);
+  }
+
+  .legal-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .legal-body {
+    padding: clamp(1.75rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .legal-block h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .legal-block p {
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .legal-back {
+    margin-top: 2rem;
+  }
+
+  :global(.legal-back__icon) {
+    transform: rotate(180deg);
+  }
+</style>

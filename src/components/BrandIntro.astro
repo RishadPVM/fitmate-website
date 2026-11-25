@@ -1,0 +1,206 @@
+---
+import { INTRO_CONTENT } from '../config/site';
+import Icons from './Icons.astro';
+import OptimizedImage from './OptimizedImage.astro';
+
+const highlightIcons = ['connect', 'consistency', 'insights'] as const;
+---
+
+<section id="intro" class="section intro" aria-labelledby="intro-heading">
+  <div class="container intro__grid">
+    <div class="intro__media-wrap" data-reveal="clip">
+      <div class="intro__media-frame" data-tilt>
+        <OptimizedImage
+          name="intro-studio"
+          alt="Athlete preparing wrist wraps beside a matte black dumbbell rack inside a quiet modern fitness studio"
+          width={896}
+          height={1200}
+          sizes="(max-width: 960px) 100vw, 44vw"
+          class="intro__picture"
+          imgClass="intro__img"
+        />
+        <div class="intro__media-overlay" aria-hidden="true"></div>
+        <div class="intro__media-caption">
+          <span class="intro__caption-dot" aria-hidden="true"></span>
+          Discipline · Rhythm · Personal Clarity
+        </div>
+      </div>
+    </div>
+
+    <div class="intro__body">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">{INTRO_CONTENT.eyebrow}</span>
+        <h2 id="intro-heading" class="display-title">{INTRO_CONTENT.headline}</h2>
+        <div class="intro__paragraphs">
+          {INTRO_CONTENT.description.map((paragraph) => (
+            <p class="lead">{paragraph}</p>
+          ))}
+        </div>
+      </div>
+
+      <div class="intro__highlights">
+        {INTRO_CONTENT.highlights.map((item, idx) => (
+          <article
+            class="surface-card intro-highlight"
+            data-reveal
+            style={`--reveal-delay: ${idx * 110 + 120}ms`}
+          >
+            <div class="intro-highlight__top">
+              <span class="intro-highlight__number tabular-nums">{item.number}</span>
+              <span class="intro-highlight__icon" aria-hidden="true">
+                <Icons name={highlightIcons[idx]} size={20} />
+              </span>
+            </div>
+            <h3 class="intro-highlight__title">{item.title}</h3>
+            <p class="intro-highlight__desc">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro {
+    overflow: hidden;
+  }
+
+  .intro__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .intro__grid {
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    }
+  }
+
+  .intro__media-frame {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid rgba(163, 192, 255, 0.14);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .intro__picture {
+    display: block;
+    aspect-ratio: 3 / 4;
+  }
+
+  :global(.intro__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s var(--ease-editorial);
+  }
+
+  .intro__media-frame:hover :global(.intro__img) {
+    transform: scale(1.03);
+  }
+
+  .intro__media-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(9, 11, 16, 0) 45%, rgba(9, 11, 16, 0.86) 100%);
+    pointer-events: none;
+  }
+
+  .intro__media-caption {
+    position: absolute;
+    left: 1.35rem;
+    right: 1.35rem;
+    bottom: 1.35rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+  }
+
+  .intro__caption-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--accent-primary);
+  }
+
+  .intro__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .intro__paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+  }
+
+  .intro__highlights {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .intro__highlights {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .intro-highlight {
+    padding: 1.45rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .intro-highlight:hover {
+    transform: translateY(-4px);
+  }
+
+  .intro-highlight__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .intro-highlight__number {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+  }
+
+  .intro-highlight__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 0.75rem;
+    background: rgba(163, 192, 255, 0.1);
+    color: var(--accent-primary);
+  }
+
+  .intro-highlight__title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .intro-highlight__desc {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+</style>

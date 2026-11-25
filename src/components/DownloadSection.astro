@@ -1,0 +1,107 @@
+---
+import { SITE } from '../config/site';
+import OptimizedImage from './OptimizedImage.astro';
+import StoreBadges from './StoreBadges.astro';
+
+const hasLiveStoreUrl = Boolean(SITE.stores.appStoreUrl || SITE.stores.googlePlayUrl);
+---
+
+<section id="download" class="section download-section" aria-labelledby="download-heading">
+  <div class="download-backdrop" aria-hidden="true">
+    <OptimizedImage
+      name="download-backdrop"
+      alt="Matte black Olympic weight plates and barbell sleeve resting on dark gym flooring"
+      width={1280}
+      height={720}
+      sizes="100vw"
+      class="download-backdrop__picture"
+      imgClass="download-backdrop__img"
+    />
+    <div class="download-backdrop__scrim"></div>
+  </div>
+
+  <div class="container download-container">
+    <div class="download-content" data-reveal>
+      <span class="eyebrow">07 · Mobile Companion</span>
+      <h2 id="download-heading" class="display-title">Your Next Chapter Starts Here.</h2>
+      <p class="lead">
+        Take the first step toward a more connected fitness experience. Download FitMate and start building consistency
+        today.
+      </p>
+
+      <div class="download-actions">
+        <StoreBadges variant="prominent" />
+      </div>
+
+      <p class="download-meta">
+        Available for iPhone via the App Store and Android via Google Play · 100% Free for Gym Members
+      </p>
+
+      {hasLiveStoreUrl && (
+        <div class="download-qr" aria-label="QR code to download FitMate">
+          <span class="download-qr__label">Scan to Download</span>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .download-section {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid rgba(163, 192, 255, 0.12);
+    border-bottom: 1px solid rgba(163, 192, 255, 0.12);
+  }
+
+  .download-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .download-backdrop__picture {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  :global(.download-backdrop__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    opacity: 0.78;
+  }
+
+  .download-backdrop__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, #090b10 0%, rgba(9, 11, 16, 0.94) 48%, rgba(9, 11, 16, 0.52) 100%),
+      linear-gradient(180deg, rgba(9, 11, 16, 0.45) 0%, rgba(9, 11, 16, 0.72) 100%);
+  }
+
+  .download-container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .download-content {
+    max-width: 40rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  .download-actions {
+    padding-top: 0.35rem;
+  }
+
+  .download-meta {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+</style>

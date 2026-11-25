@@ -1,0 +1,42 @@
+---
+export interface Props {
+  name: 'hero-training' | 'intro-studio' | 'download-backdrop';
+  alt: string;
+  width: number;
+  height: number;
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+  imgClass?: string;
+}
+
+const {
+  name,
+  alt,
+  width,
+  height,
+  sizes = '(max-width: 768px) 100vw, 50vw',
+  eager = false,
+  class: className = '',
+  imgClass = '',
+} = Astro.props;
+
+const avifSrcSet = `/images/${name}-640.avif 640w, /images/${name}-1280.avif 1280w`;
+const webpSrcSet = `/images/${name}-640.webp 640w, /images/${name}-1280.webp 1280w`;
+const fallbackSrc = `/images/${name}-1280.webp`;
+---
+
+<picture class={className}>
+  <source type="image/avif" srcset={avifSrcSet} sizes={sizes} />
+  <source type="image/webp" srcset={webpSrcSet} sizes={sizes} />
+  <img
+    src={fallbackSrc}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding={eager ? 'sync' : 'async'}
+    fetchpriority={eager ? 'high' : undefined}
+    class={imgClass}
+  />
+</picture>

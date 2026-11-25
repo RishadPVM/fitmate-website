@@ -1,0 +1,171 @@
+---
+import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource-variable/inter';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import { SITE, FAQS } from '../config/site';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import StoreModal from '../components/StoreModal.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  isHome?: boolean;
+  breadcrumbLabel?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  canonicalPath = '/',
+  isHome = true,
+  breadcrumbLabel,
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, SITE.siteUrl).toString();
+const ogImageUrl = new URL('/images/og-fitmate.jpg', SITE.siteUrl).toString();
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.brandName,
+  url: SITE.siteUrl,
+  logo: new URL('/icon-512.png', SITE.siteUrl).toString(),
+  description: SITE.description,
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.brandName,
+  url: SITE.siteUrl,
+  description: SITE.description,
+};
+
+const softwareAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: SITE.brandName,
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'iOS, Android',
+  isAccessibleForFree: true,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    description: 'Free for individual gym members. Gyms pay for the FitMate platform.',
+  },
+  description:
+    'FitMate connects gyms and their members with attendance tracking, membership visibility, and personal BMI and health insights.',
+};
+
+const faqSchema = isHome
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    }
+  : null;
+
+const breadcrumbSchema = !isHome && breadcrumbLabel
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: SITE.siteUrl,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: breadcrumbLabel,
+          item: canonicalUrl,
+        },
+      ],
+    }
+  : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={SITE.keywords.join(', ')} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#090B10" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Favicons & App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.brandName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="FitMate — Your Fitness Journey. Better Connected." />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(softwareAppSchema)} />
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+    {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
+  </head>
+
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <Navbar isHome={isHome} />
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer isHome={isHome} />
+    <StoreModal />
+
+    <script>
+      import '../scripts/interactions';
+    </script>
+    <noscript>
+      <style>
+        [data-reveal],
+        [data-reveal="clip"],
+        .word-inner {
+          opacity: 1 !important;
+          transform: none !important;
+          clip-path: none !important;
+        }
+      </style>
+    </noscript>
+  </body>
+</html>
